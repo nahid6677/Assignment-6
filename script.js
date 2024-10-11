@@ -33,9 +33,7 @@ const displayAllPets = (allPets) => {
         cardContainer.innerHTML = `
             <div class="card  h-[400px] shadow">
             <figure class="mx-3 mt-3  rounded-xl">
-                <img
-                src="${items.image}"
-                class=" rounded-xl" />
+                <img src="${items.image}" class="w-full " >
             </figure>
             <div class="px-4 py-3 ">
                 <div class="flex-col flex items-start justify-start gap-1">
@@ -175,8 +173,9 @@ const like = (Inid) => {
     // console.log(Inid)
     const likeContainer = document.getElementById('likeImg');
     const singleImg = document.createElement('div');
+    
+    
     likeContainer.appendChild(singleImg);
-    singleImg.classList = " "
     const allPetsInF = () => {
         fetch('https://openapi.programming-hero.com/api/peddy/pets')
             .then(res => res.json())
@@ -187,7 +186,6 @@ const like = (Inid) => {
 
     const displayAllPetsInF = (allpetsData) => {
         // console.log(allpetsData)
-
         allpetsData.forEach((item) => {
             // console.log(item)
             if (item.petId === Inid) {
@@ -195,7 +193,8 @@ const like = (Inid) => {
                 singleImg.innerHTML = `
                     <img class="rounded" src="${item.image}" class="w-full">
                 `;
-
+                likeContainer.classList.remove('py-24');
+                likeContainer.classList.add('py-2');
             }
         })
     }
