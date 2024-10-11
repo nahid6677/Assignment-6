@@ -59,7 +59,7 @@ const displayAllPets = (allPets) => {
                 </div>
                 <div class="card-actions flex justify-center gap-5 mt-3">
                     <button onclick="like(${items.petId})" id="${items.petId}" class="btn border-gray-300 bg-white"><img src="assets/like.png" alt=""></button>
-                    <button onclick="adopFunction(${items.petId})" id="" class="btn border-gray-300 text-emerald-600 bg-white">Adopt</button>
+                    <button onclick="adopt(${items.petId})" id="openModalBtn-${items.petId}" class="btn border-gray-300 text-emerald-600 bg-white">Adopt</button>
                     <button onclick="detail(${items.petId})" id="" class="btn border-gray-300 text-emerald-600 bg-white">Details</button>
                 </div>
             </div>
@@ -71,11 +71,14 @@ const displayAllPets = (allPets) => {
 }
 
 const AsingleCatagory = (name) => {
+    spinner('all_pets_cards')
+
     if (name == '1') {
         //1 is cat 
         const petsContainer = document.getElementById('all_pets_cards');
         petsContainer.innerHTML = ''
-
+        // petsContainer.classList.add('py-96')
+        // bbb('all_pets_cards')
         const allCat = () => {
             fetch('https://openapi.programming-hero.com/api/peddy/category/cat')
                 .then(res => res.json())
@@ -86,11 +89,13 @@ const AsingleCatagory = (name) => {
                     else {
                         petsContainer.classList.add('grid');
                         visite(data.data)
+
                     }
                 })
                 .catch(error => console.log('Error My Code', error))
         }
         allCat()
+
     }
     if (name == '2') {
         // 2 is dog
@@ -153,6 +158,7 @@ const AsingleCatagory = (name) => {
                                 <p class="text-center">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a.</p>
                             </div>
                          `
+
                     }
                     else (
                         console.log('hhh')
@@ -162,6 +168,7 @@ const AsingleCatagory = (name) => {
         }
         allBird()
     }
+
 }
 
 const like = (Inid) => {
@@ -194,8 +201,7 @@ const like = (Inid) => {
     }
 }
 
-const adopFunction= (id) => {
-    // const adopcontainer = document.getElementById('adopt');
+const adopFunction = (id) => {
     document.getElementById('my_modal_66').classList.remove('hidden')
 
     const allPetsInF = () => {
@@ -212,7 +218,7 @@ const adopFunction= (id) => {
             let timeLeft = 3;
             if (item.petId === id) {
                 // console.log(item)
-                const countdownTimer =  setInterval(() => {
+                const countdownTimer = setInterval(() => {
                     timeLeft--;
                     detailcontainer.innerHTML = timeLeft;
                     if (timeLeft <= 0) {
@@ -220,9 +226,9 @@ const adopFunction= (id) => {
                         // document.getElementById('my_modal_66').classList.add('hidden');
                         // countdownElement.textContent = "Time's up!";
                     }
-                },1000)
+                }, 1000)
 
-                
+
                 document.getElementById('my_modal_66').showModal()
             }
         })
@@ -242,7 +248,6 @@ const detail = (id) => {
         const detailcontainer = document.getElementById('modal-contant');
 
         myData.forEach((item) => {
-            // console.log(item)
             if (item.petId === id) {
                 // console.log(item)
                 detailcontainer.innerHTML = `
@@ -299,6 +304,7 @@ allPets()
 
 
 document.getElementById('sort-by-price').addEventListener('click', () => {
+    spinner('all_pets_cards')
     const petsContainer = document.getElementById('all_pets_cards');
     petsContainer.innerHTML = '';
     const allPetsInF = () => {
@@ -319,15 +325,9 @@ const visite = (single) => {
     displayAllPets(sortArray.reverse())
 }
 
-// const convertJson = async() =>{
-//     const res = await fetch('https://openapi.programming-hero.com/api/peddy/pets');
-//     const data = await res.json(res);
-//     return data.pets;
-// }
-
-document.getElementById('btnCollaps').addEventListener('click', () =>{
+document.getElementById('btnCollaps').addEventListener('click', () => {
     hideAndShow('collaps')
-    
+
 })
 
 function hideAndShow(id) {
@@ -343,106 +343,66 @@ function hideAndShow(id) {
     };
 };
 
-document.getElementById('jump').addEventListener('click', () =>{
+document.getElementById('jump').addEventListener('click', () => {
 
-    
+
 })
 
 
 
+const adopt = (id) => {
+    // console.log('clicked')
 
+    const openModalBtn = document.getElementById(`openModalBtn-${id}`);
+    const modal = document.getElementById('myModal');
 
+    openModalBtn.addEventListener('click', () => {
+        startCountdown()
+        modal.classList.remove('hidden');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            openModalBtn.disabled = true;
+            openModalBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+        }, 3000);
+    });
 
+}
 
+const modal = document.getElementById('my_modal_5');
+const closeModalBtn = document.getElementById('closeModalBtn');
+closeModalBtn.addEventListener('click', () => {
+    modal.close();
+});
 
+const spinner = (id) => {
 
+    const spinnerOverlay = document.getElementById('spinnerOverlay');
+    const pageContent = document.getElementById(id);
 
+    spinnerOverlay.classList.remove('hidden');
+    pageContent.classList.add('blur-sm');
 
+    setTimeout(() => {
+        spinnerOverlay.classList.add('hidden');
+        pageContent.classList.remove('blur-sm');
 
+    }, 2000);
+}
 
+const startCountdown = () => {
+    let countdown = 3;
+    const countdownDisplay = document.getElementById('countdownDisplay');
+    countdownDisplay.textContent = countdown;
+    const intervalId = setInterval(() => {
+        countdown--;
+        countdownDisplay.textContent = countdown;
+        if (countdown === 0) {
+            clearInterval(intervalId);
+            countdownDisplay.textContent = "";
+        }
+    }, 1000);
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const myArray = [{
-//     "petId": 3,
-//     "category": "Rabbit",
-//     "date_of_birth": "2022-04-20",
-//     "price": 1500,
-//     "image": "https://i.ibb.co.com/s3PXSwD/pet-3.jpg",
-//     "gender": "Male",
-//     "pet_details": "This male African Grey rabbit is a small, friendly companion born on April 20, 2022. He prefers a calm environment and enjoys gentle handling. Partially vaccinated, he's a great choice for rabbit lovers who want a peaceful, easygoing pet. Priced at $1500, he's perfect for a quiet home environment.",
-//     "vaccinated_status": "Partially",
-//     "pet_name": "Coco"
-// },
-// {
-//     "petId": 16,
-//     "breed": "English Angora",
-//     "category": "Rabbit",
-//     "date_of_birth": "2023-08-05",
-//     "price": 300,
-//     "image": "https://i.ibb.co.com/zZHPJNh/pet-16.jpg",
-//     "gender": "Female",
-//     "pet_details": "This fluffy female English Angora rabbit, born on August 5, 2023, is known for her long, luxurious fur. Priced at $300, she's perfect for families who enjoy grooming and cuddling. She is not vaccinated.",
-//     "vaccinated_status": "Not",
-//     "pet_name": "Snowball"
-// },{
-//     "petId": 9,
-//     "breed": "Beagle",
-//     "category": "Dog",
-//     "date_of_birth": "2023-03-22",
-//     "price": null,
-//     "image": "https://i.ibb.co.com/XyXBtb8/pet-9.jpg",
-//     "gender": "Male",
-//     "pet_details": "This male Beagle, born on March 22, 2023, is curious, playful, and great with children. Fully vaccinated and priced at $1900, he is perfect for families looking for an active, adventurous companion that loves to explore.",
-//     "vaccinated_status": "Fully",
-//     "pet_name": "Buddy"
-// },{
-//     "petId": 7,
-//     "breed": "Bengal",
-//     "category": "Cat",
-//     "date_of_birth": "2022-11-10",
-//     "price": 950,
-//     "image": "https://i.ibb.co.com/QXbXctF/pet-7.jpg",
-//     "gender": "Male",
-//     "pet_details": "This male Bengal cat, born on November 10, 2022, is energetic and playful. He loves exploring, climbing, and playing with interactive toys. Fully vaccinated and priced at $950, he's perfect for anyone looking for an active, intelligent, and lively cat.",
-//     "vaccinated_status": null,
-//     "pet_name": "Max"
-// },{
-//     "petId": 5,
-//     "breed": "Beagle",
-//     "category": "Dog",
-//     "date_of_birth": null,
-//     "price": 900,
-//     "image": "https://i.ibb.co.com/BwnvDMY/pet-5.jpg",
-//     "gender": "Female",
-//     "pet_details": "This curious female Beagle was born on March 22, 2023, and loves to explore and play. She is great with kids and enjoys outdoor adventures. Fully vaccinated and priced at $900, she's perfect for an active family looking for a loyal, energetic companion.",
-//     "vaccinated_status": "Fully",
-//     "pet_name": "Bella"
-// }
-// ]
 
 
 
