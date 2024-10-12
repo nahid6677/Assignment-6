@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment-6</title>
+    <title>Pet Sell Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -36,27 +36,29 @@
 
         .active {
             background-color: red;
-            color: white;
+            color: rgb(255, 255, 255);
         }
     </style>
 </head>
 
 <body class="">
     <header class="w-full">
-        <div class="flex justify-between items-center py-5">
-            <div class="sm:hidden "><button id="btnCollaps" class="btn castom"></button></div>
+        <div id="hd_bg" class="flex justify-between items-center py-5 bg-emerald-300 mb-5 sm:mb-0 rounded-b-xl sm:bg-white">
+            <div class="sm:hidden "><button id="btnCollaps" class="btn bg-emerald-300 castom"></button></div>
             <div id="collaps" class="hidden sm:flex w-full">
-                <nav class="w-11/12 mx-auto  flex justify-between  items-center">
-                    <div class="flex items-center gap-2">
+                <nav class="w-11/12 mx-auto  sm:flex justify-center sm:justify-between  items-center">
+                    <div class="flex items-center mb-5 justify-center sm:justify-start gap-2">
                         <img src="assets/logo.webp" alt="">
                         <h2 class="text-xl"> Peddy</h2>
                     </div>
-                    <div class="flex justify-center gap-3  items-center">
-                        <button class="btn">Home</button>
-                        <button class="btn">Shop</button>
-                        <button class="btn">Contact</button>
+                    <div class="flex justify-center sm:justify-between gap-5 sm:gap-2 sm:w-[70%]">
+                        <div class="flex justify-center gap-3  items-center">
+                            <button class="btn">Home</button>
+                            <button class="btn">Shop</button>
+                            <button class="btn">Contact</button>
+                        </div>
+                        <img class="w-11 " src="assets/Frame-4.png" alt="">
                     </div>
-                    <img class="w-11 " src="assets/Frame-4.png" alt="">
                 </nav>
             </div>
         </div>
@@ -85,7 +87,7 @@
         </div>
 
 
-        <div id="catagory_btn_all" class="flex justify-between items-center w-full">
+        <div id="catagory_btn_all" class="sm:flex sm:justify-between sm:items-center w-full grid grid-cols-2 justify-around gap-4 sm:gap-0">
 
         </div>
         <div class="flex justify-between items-center w-full border-b pb-2 border-t pt-2">

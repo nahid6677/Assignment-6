@@ -10,6 +10,7 @@ const displayCatagorybtn = (catagory) => {
     catagory.forEach((items) => {
         // console.log(items.category)
         const buttoncontainer = document.createElement('div');
+        buttoncontainer.classList = "flex justify-center"
         buttoncontainer.innerHTML = `
     <button id="btn-${items.id}" onclick="AsingleCatagory(${items.id})" class="btn border bg-white border-gray-300 md:text-xl font-bold"> <img class="md:w-8 w-4 h-4 md:h-8 mr-1" src="${items.category_icon}"> ${items.category} </button>
 `;
@@ -70,6 +71,11 @@ const displayAllPets = (allPets) => {
 
 const AsingleCatagory = (name) => {
     spinner('all_pets_cards')
+    const active1 = document.getElementById(`btn-1`);
+    const active2 = document.getElementById(`btn-2`);
+    const active3 = document.getElementById(`btn-3`);
+    const active4 = document.getElementById(`btn-4`);
+    // active.classList.remove('bg-red-500')
 
     if (name == '1') {
         //1 is cat 
@@ -87,7 +93,10 @@ const AsingleCatagory = (name) => {
                     else {
                         petsContainer.classList.add('grid');
                         visite(data.data)
-
+                        active1.classList.add('bg-slate-400')
+                        active2.classList.remove('bg-slate-400')
+                        active3.classList.remove('bg-slate-400')
+                        active4.classList.remove('bg-slate-400')
                     }
                 })
                 .catch(error => console.log('Error My Code', error))
@@ -109,6 +118,10 @@ const AsingleCatagory = (name) => {
                     else {
                         petsContainer.classList.add('grid');
                         visite(data.data)
+                        active1.classList.remove('bg-slate-400')
+                        active2.classList.add('bg-slate-400')
+                        active3.classList.remove('bg-slate-400')
+                        active4.classList.remove('bg-slate-400')
                     }
                 })
                 .catch(error => console.log('Error My Code', error))
@@ -130,6 +143,10 @@ const AsingleCatagory = (name) => {
                     else {
                         petsContainer.classList.add('grid');
                         visite(data.data)
+                        active1.classList.remove('bg-slate-400')
+                        active2.classList.remove('bg-slate-400')
+                        active3.classList.add('bg-slate-400')
+                        active4.classList.remove('bg-slate-400')
                     }
                 })
                 .catch(error => console.log('Error My Code', error))
@@ -145,8 +162,10 @@ const AsingleCatagory = (name) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.data.length == false) {
-                        // console.log(data.data.length)
-                        // alert('No data avilable.')
+                        active1.classList.remove('bg-slate-400')
+                        active2.classList.remove('bg-slate-400')
+                        active3.classList.remove('bg-slate-400')
+                        active4.classList.add('bg-slate-400')
                         petsContainer.classList.remove('grid');
                         // petsContainer.classList = "w-full"
                         petsContainer.innerHTML = `
@@ -173,8 +192,8 @@ const like = (Inid) => {
     // console.log(Inid)
     const likeContainer = document.getElementById('likeImg');
     const singleImg = document.createElement('div');
-    
-    
+
+
     likeContainer.appendChild(singleImg);
     const allPetsInF = () => {
         fetch('https://openapi.programming-hero.com/api/peddy/pets')
@@ -303,6 +322,14 @@ allPets()
 
 
 document.getElementById('sort-by-price').addEventListener('click', () => {
+    const active1 = document.getElementById(`btn-1`);
+    const active2 = document.getElementById(`btn-2`);
+    const active3 = document.getElementById(`btn-3`);
+    const active4 = document.getElementById(`btn-4`);
+    active1.classList.remove('bg-slate-400')
+    active2.classList.remove('bg-slate-400')
+    active3.classList.remove('bg-slate-400')
+    active4.classList.remove('bg-slate-400')
     spinner('all_pets_cards')
     const petsContainer = document.getElementById('all_pets_cards');
     petsContainer.innerHTML = '';
@@ -331,14 +358,18 @@ document.getElementById('btnCollaps').addEventListener('click', () => {
 
 function hideAndShow(id) {
     const btN = document.getElementById('btnCollaps');
+    const bg = document.getElementById('hd_bg');
     if (document.getElementById(id).classList.contains('hidden') === true) {
         document.getElementById(id).classList.remove('hidden');
-        // btN.classList.remove('mt-5')
+        btN.classList.add('mb-12')
+        btN.classList.remove('bg-emerald-300')
+        bg.classList.remove('bg-emerald-300')
 
     }
     else if (document.getElementById(id).classList.contains('hidden') === false) {
         document.getElementById(id).classList.add('hidden');
-        // btN.classList.add('mt-5')
+        bg.classList.add('bg-emerald-300')
+        btN.classList.add('bg-emerald-300')
     };
 };
 
